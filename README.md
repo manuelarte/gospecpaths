@@ -85,7 +85,7 @@ Parameters:
 
 ### As Go tool
 
-[Go tool](https://tip.golang.org/doc/go1.24#tools) support is available from Go 1.24+ for managing the dependency of gospecpaths alongside your core application.
+[Go tool][gotool] support is available from Go 1.24+ for managing the dependency of gospecpaths alongside your core application.
 
 To do this, you run `go get -tool`:
 
@@ -100,4 +100,5 @@ From there, each invocation of gospecpaths would be used like so:
 //go:generate go tool gospecpaths --package api --output api/paths.gen.go ../../api.yaml
 ```
 
+[gotool]: https://tip.golang.org/doc/go1.24#tools
 [openapi]: https://swagger.io/specification/
