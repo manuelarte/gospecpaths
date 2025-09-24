@@ -83,4 +83,21 @@ Parameters:
 - `package`: (**Required**) Package name for the generated file.
 - `output`: Path and name to the save the generated code (e.g. 'gospecpaths.gen.go'). If not present, it will output to `stdout`.
 
+### As Go tool
+
+[Go tool](https://tip.golang.org/doc/go1.24#tools) support is available from Go 1.24+ for managing the dependency of gospecpaths alongside your core application.
+
+To do this, you run `go get -tool`:
+
+```bash
+$ go get -tool github.com/manuelarte/gospecpaths@latest
+# this will then modify your `go.mod`
+```
+
+From there, each invocation of gospecpaths would be used like so:
+
+```bash
+//go:generate go tool gospecpaths --package api --output api/paths.gen.go ../../api.yaml
+```
+
 [openapi]: https://swagger.io/specification/
