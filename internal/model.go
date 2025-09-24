@@ -9,8 +9,8 @@ import (
 )
 
 type Cfg struct {
-	packageName   string
-	savedFilename string
+	packageName string
+	output      string
 }
 
 func DefaultConfig() Cfg {
@@ -27,12 +27,24 @@ func (c Cfg) PackageName() string {
 	return c.packageName
 }
 
-func (c Cfg) SavedFilename() string {
-	if c.savedFilename == "" {
+func (c Cfg) Output() string {
+	if c.output == "" {
 		return "gospecpaths.gen.go"
 	}
 
-	return c.savedFilename
+	return c.output
+}
+
+func (c Cfg) SetPackageName(name string) Cfg {
+	c.packageName = name
+
+	return c
+}
+
+func (c Cfg) SetOutput(output string) Cfg {
+	c.output = output
+
+	return c
 }
 
 type Path struct {

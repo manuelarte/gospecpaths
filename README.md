@@ -4,7 +4,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/manuelarte/gospecpaths)](https://goreportcard.com/report/github.com/manuelarte/gospecpaths)
 ![version](https://img.shields.io/github/v/release/manuelarte/gospecpaths)
 
-Go Spec Link retrieves the links of an OpenAPI spec file.
+Go Spec Paths retrieves the paths of an OpenAPI spec file and generates a struct with the paths defined in the spec.
 
 > [!WARNING]
 >
@@ -67,17 +67,20 @@ fmt.Printf("%s\n", p)
 // /pet/1
 ```
 
+This is useful for building a router or to create HATEOAS links.
+
 ## ⬇️ Getting started
 
 ### As cli
 
 ```bash
-gospecpaths --package gospecpaths --output gospecpaths.gen.go ./openapi.yaml
+gospecpaths [--package {package}] [--output {output}] [FILE]
 ```
 
 Parameters:
 
-- `package`: Required. Package name for the generated file.
-- `output`: Path and name to the save the generated code (e.g. 'gospecpaths.gen.go'). If not present, it will output to stdout.
+- `FILE`: Path to the OpenAPI spec file.
+- `package`: (**Required**) Package name for the generated file.
+- `output`: Path and name to the save the generated code (e.g. 'gospecpaths.gen.go'). If not present, it will output to `stdout`.
 
 [openapi]: https://swagger.io/specification/
