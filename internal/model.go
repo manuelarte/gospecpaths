@@ -119,5 +119,5 @@ func (p Path) createPathFunction(f *jen.File, structName string, indexFields map
 func (p Path) getEndpointStructName() string {
 	operationID := p.pathItem.Get.OperationId
 
-	return fmt.Sprintf("%s%sParam", strings.ToUpper(operationID[0:1]), operationID[1:])
+	return fmt.Sprintf("%s%sEndpoint", strings.ToUpper(operationID[0:1]), operationID[1:])
 }

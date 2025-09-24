@@ -4,72 +4,72 @@ package main
 
 import "strings"
 
-type GetUserByNameParam struct{}
+type GetUserByNameEndpoint struct{}
 
-func (p GetUserByNameParam) Path(username string) string {
+func (p GetUserByNameEndpoint) Path(username string) string {
 	message := "/user/{username}"
 	message = strings.Replace(message, "{username}", username, -1)
 	return message
 }
 
-type LogoutUserParam struct{}
+type LogoutUserEndpoint struct{}
 
-func (p LogoutUserParam) Path() string {
+func (p LogoutUserEndpoint) Path() string {
 	message := "/user/logout"
 	return message
 }
 
-type LoginUserParam struct{}
+type LoginUserEndpoint struct{}
 
-func (p LoginUserParam) Path() string {
+func (p LoginUserEndpoint) Path() string {
 	message := "/user/login"
 	return message
 }
 
-type GetOrderByIdParam struct{}
+type GetOrderByIdEndpoint struct{}
 
-func (p GetOrderByIdParam) Path(orderId string) string {
+func (p GetOrderByIdEndpoint) Path(orderId string) string {
 	message := "/store/order/{orderId}"
 	message = strings.Replace(message, "{orderId}", orderId, -1)
 	return message
 }
 
-type GetInventoryParam struct{}
+type GetInventoryEndpoint struct{}
 
-func (p GetInventoryParam) Path() string {
+func (p GetInventoryEndpoint) Path() string {
 	message := "/store/inventory"
 	return message
 }
 
-type GetPetByIdParam struct{}
+type GetPetByIdEndpoint struct{}
 
-func (p GetPetByIdParam) Path(petId string) string {
+func (p GetPetByIdEndpoint) Path(petId string) string {
 	message := "/pet/{petId}"
 	message = strings.Replace(message, "{petId}", petId, -1)
 	return message
 }
 
-type FindPetsByTagsParam struct{}
+type FindPetsByTagsEndpoint struct{}
 
-func (p FindPetsByTagsParam) Path() string {
+func (p FindPetsByTagsEndpoint) Path() string {
 	message := "/pet/findByTags"
 	return message
 }
 
-type FindPetsByStatusParam struct{}
+type FindPetsByStatusEndpoint struct{}
 
-func (p FindPetsByStatusParam) Path() string {
+func (p FindPetsByStatusEndpoint) Path() string {
 	message := "/pet/findByStatus"
 	return message
 }
 
 type Paths struct {
-	FindPetsByTagsParam   FindPetsByTagsParam
-	FindPetsByStatusParam FindPetsByStatusParam
-	GetUserByNameParam    GetUserByNameParam
-	LogoutUserParam       LogoutUserParam
-	LoginUserParam        LoginUserParam
-	GetOrderByIdParam     GetOrderByIdParam
-	GetInventoryParam     GetInventoryParam
-	GetPetByIdParam       GetPetByIdParam
+	GetInventoryEndpoint     GetInventoryEndpoint
+	GetPetByIdEndpoint       GetPetByIdEndpoint
+	FindPetsByTagsEndpoint   FindPetsByTagsEndpoint
+	FindPetsByStatusEndpoint FindPetsByStatusEndpoint
+	GetUserByNameEndpoint    GetUserByNameEndpoint
+	LogoutUserEndpoint       LogoutUserEndpoint
+	LoginUserEndpoint        LoginUserEndpoint
+	GetOrderByIdEndpoint     GetOrderByIdEndpoint
 }
