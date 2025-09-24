@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.0 (2025-09-24)
+
+
+### Features
+
+* initial feature ([59d81a3](https://github.com/manuelarte/gospecpaths/commit/59d81a344ddacbfc0c10babf783bd8a420d0c7ee))
+
+## Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
