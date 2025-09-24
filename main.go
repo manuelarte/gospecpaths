@@ -1,17 +1,23 @@
-package gospecpaths
+package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 
 	"github.com/pb33f/libopenapi"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
+	"github.com/urfave/cli/v3"
 
-	"github.com/manuelarte/gospecpath/internal"
+	"github.com/manuelarte/gospecpaths/internal"
 )
 
-// GeneratePathsStruct generate Path struct based on a v3 OpenAPI spec model.
-func GeneratePathsStruct(path string) error {
+func main() {
+	(&cli.Command{}).Run(context.Background(), os.Args)
+}
+
+// generatePathsStruct generate Path struct based on a v3 OpenAPI spec model.
+func generatePathsStruct(path string) error {
 	b, err := os.ReadFile(path)
 	if err != nil {
 		return fmt.Errorf("error reading file: %w", err)
