@@ -70,6 +70,7 @@ func (p Path) AddEndpointStruct(f *jen.File) string {
 	structName := p.getEndpointStructName()
 
 	fields := make(map[string]jen.Code)
+
 	for _, param := range p.pathItem.Get.Parameters {
 		if strings.ToLower(param.In) == "path" {
 			paramName := param.Name
@@ -85,14 +86,19 @@ func (p Path) AddEndpointStruct(f *jen.File) string {
 }
 
 func (p Path) createPathFunction(f *jen.File, structName string, indexFields map[string]jen.Code) {
-	fields := make([]jen.Code, len(indexFields))
+	fields := make([]jen.Code, 0, len(indexFields))
 	body := make([]jen.Code, 0)
+
 	body = append(body, jen.Id("message").Op(":=").Lit(p.url))
 	for fieldName, field := range indexFields {
-		c := jen.Id("message").Op("=").Qual("strings", "Replace").Call(jen.Id("message"), jen.Lit(fmt.Sprintf("{%s}", fieldName)), jen.Id(fieldName), jen.Lit(-1))
+		c := jen.Id("message").
+			Op("=").
+			Qual("strings", "Replace").
+			Call(jen.Id("message"), jen.Lit(fmt.Sprintf("{%s}", fieldName)), jen.Id(fieldName), jen.Lit(-1))
 		body = append(body, c)
 		fields = append(fields, field)
 	}
+
 	body = append(body, jen.Return(jen.Id("message")))
 
 	f.Func().Params(jen.Id("p").Id(structName)).Id("Path").Params(fields...).String().Block(
