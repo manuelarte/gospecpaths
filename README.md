@@ -1,19 +1,10 @@
-# TODO Project Name
+# Go Spec Link
 
-[![Go](https://github.com/manuelarte/go-template/actions/workflows/go.yml/badge.svg)](https://github.com/manuelarte/go-template/actions/workflows/go.yml)
-[![Go Report Card](https://goreportcard.com/badge/github.com/manuelarte/go-template)](https://goreportcard.com/report/github.com/manuelarte/go-template)
-![version](https://img.shields.io/github/v/release/manuelarte/go-template)
+[![Go](https://github.com/manuelarte/gospecpaths/actions/workflows/go.yml/badge.svg)](https://github.com/manuelarte/gospecpaths/actions/workflows/go.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/manuelarte/gospecpaths)](https://goreportcard.com/report/github.com/manuelarte/gospecpaths)
+![version](https://img.shields.io/github/v/release/manuelarte/gospecpaths)
 
-> [!NOTE]
-> Add your project info and replace go-template with your project name
-
-## ⬇️  Getting Started
-
-To install it run:
-
-```bash
-go install github.com/manuelarte/go-template@latest
-```
+Go Spec Link retrieves the links of an OpenAPI spec file.
 
 ## 🚀 Features
 
