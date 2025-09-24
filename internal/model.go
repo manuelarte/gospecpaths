@@ -59,7 +59,6 @@ func (p Path) IsValid() bool {
 	if p.pathItem == nil {
 		return false
 	}
-
 	hasOperationID := p.pathItem.Get != nil && p.pathItem.Get.OperationId != ""
 
 	return hasOperationID
@@ -68,18 +67,14 @@ func (p Path) IsValid() bool {
 // AddEndpointStruct add the endpoint struct to the generated file.
 func (p Path) AddEndpointStruct(f *jen.File) string {
 	structName := p.getEndpointStructName()
-
 	fields := make(map[string]jen.Code)
-
 	for _, param := range p.pathItem.Get.Parameters {
 		if strings.ToLower(param.In) == "path" {
 			paramName := param.Name
 			fields[paramName] = jen.Id(paramName).String()
 		}
 	}
-
 	f.Type().Id(structName).Struct()
-
 	p.createPathFunction(f, structName, fields)
 
 	return structName
@@ -88,7 +83,6 @@ func (p Path) AddEndpointStruct(f *jen.File) string {
 func (p Path) createPathFunction(f *jen.File, structName string, indexFields map[string]jen.Code) {
 	fields := make([]jen.Code, 0, len(indexFields))
 	body := make([]jen.Code, 0)
-
 	body = append(body, jen.Id("message").Op(":=").Lit(p.url))
 	for fieldName, field := range indexFields {
 		c := jen.Id("message").
@@ -98,7 +92,6 @@ func (p Path) createPathFunction(f *jen.File, structName string, indexFields map
 		body = append(body, c)
 		fields = append(fields, field)
 	}
-
 	body = append(body, jen.Return(jen.Id("message")))
 
 	f.Func().Params(jen.Id("p").Id(structName)).Id("Path").Params(fields...).String().Block(
