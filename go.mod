@@ -4,8 +4,8 @@ go 1.24.7
 
 require (
 	github.com/dave/jennifer v1.7.1
-	github.com/pb33f/libopenapi v0.28.1
-	github.com/urfave/cli/v3 v3.5.0
+	github.com/pb33f/libopenapi v0.28.2
+	github.com/urfave/cli/v3 v3.6.0
 )
 
 require (
