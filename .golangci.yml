@@ -3,10 +3,13 @@ version: "2"
 
 formatters:
   enable:
+    # keep-sorted start
     - gci
     - gofmt
     - gofumpt
+    # keep-sorted end
   settings:
+    # keep-sorted start
     gci:
       sections:
         - standard
@@ -19,36 +22,40 @@ formatters:
           replacement: "any"
     gofumpt:
       extra-rules: true
+    # keep-sorted end
 
 linters:
   default: all
   disable:
-    - decorder  # If applicable, to be checked in code reviews.
-    - dupl  # Too many false positives.
-    - err113  # This leads to lots of unnecessary allocations and boilerplate.
-    - errchkjson  # No json.
-    - exhaustruct  # If applicable, to be checked in code reviews.
-    - forbidigo  # Need to print to console
-    - forcetypeassert  # Used in a different linter
+    # keep-sorted start
+    - decorder # If applicable, to be checked in code reviews.
+    - dupl # Too many false positives.
+    - err113 # This leads to lots of unnecessary allocations and boilerplate.
+    - errchkjson # No json.
+    - exhaustruct # If applicable, to be checked in code reviews.
+    - forbidigo # Need to print to console
+    - forcetypeassert # Used in a different linter
     - ginkgolinter # Related to Ginkgo.
-    - goheader  # No need of copyright headers.
-    - gomodguard  # Not needed for a linter
-    - gosmopolitan  # No i18n.
-    - importas  # No need of aliasing imports.
-    - inamedparam  # Not important.
-    - ireturn  # No need for this linter here.
-    - noinlineerr  # I prefer inline errors.
+    - goheader # No need of copyright headers.
+    - gomodguard # Not needed for a linter
+    - gosmopolitan # No i18n.
+    - importas # No need of aliasing imports.
+    - inamedparam # Not important.
+    - ireturn # No need for this linter here.
+    - noinlineerr # I prefer inline errors.
     - promlinter # Related to prometheus.
     - rowserrcheck # Related to SQL.
     - spancheck # Related to OpenTelemetry.
     - sqlclosecheck # Related to SQL.
-    - tagliatelle  # No need for tags.
-    - testpackage  # We are testing using google tools.
-    - varnamelen  # If applicable, to be checked in a code review.
-    - wsl  # Deprecated, using wsl_v5
-    - zerologlint  # Not using zerolog.
+    - tagliatelle # No need for tags.
+    - testpackage # We are testing using google tools.
+    - varnamelen # If applicable, to be checked in a code review.
+    - wsl # Deprecated, using wsl_v5
+    - zerologlint # Not using zerolog.
+    # keep-sorted end
 
   settings:
+    # keep-sorted start
     cyclop:
       max-complexity: 30
       package-average: 10
@@ -149,6 +156,7 @@ linters:
       align: false
     usetesting:
       os-temp-dir: true
+    # keep-sorted end
 
   exclusions:
     presets:
@@ -164,5 +172,7 @@ linters:
         path: _test\.go
 
 issues:
-  max-same-issues: 0
+  # keep-sorted start
   max-issues-per-linter: 0
+  max-same-issues: 0
+  # keep-sorted end
