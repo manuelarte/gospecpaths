@@ -229,11 +229,11 @@ components:
       properties:
         status:
           $ref: '#/components/schemas/HealthStatus'
-        details: { }
+        details: {}
     HealthStatus:
       type: string
       description: Status of the health check
-      enum: [ 'UP', 'DOWN' ]
+      enum: ['UP', 'DOWN']
     Info:
       type: object
       description: Info about the version deployed
