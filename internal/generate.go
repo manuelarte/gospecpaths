@@ -2,8 +2,8 @@ package internal
 
 import (
 	"fmt"
+	"maps"
 	"slices"
-	"strings"
 
 	"github.com/dave/jennifer/jen"
 )
@@ -22,13 +22,9 @@ func GenerateFile(paths []Path, c Cfg) (*jen.File, error) {
 	}
 
 	fields := make([]jen.Code, 0)
-	for field := range structsCreated {
+	for _, field := range slices.Sorted(maps.Keys(structsCreated)) {
 		fields = append(fields, jen.Id(field).Id(field))
 	}
-
-	slices.SortFunc(fields, func(e jen.Code, e2 jen.Code) int {
-		return strings.Compare(e.GoString(), e2.GoString())
-	})
 	f.Type().Id("Paths").Struct(fields...)
 
 	return f, nil
