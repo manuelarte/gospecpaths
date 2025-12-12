@@ -7,6 +7,8 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"slices"
+	"strings"
 
 	"github.com/pb33f/libopenapi"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
@@ -93,6 +95,9 @@ func generateFile(path string, cfg internal.Cfg) error {
 	}
 
 	paths := parsePaths(docModel)
+	slices.SortFunc(paths, func(e internal.Path, e2 internal.Path) int {
+		return strings.Compare(e.GetURL(), e2.GetURL())
+	})
 
 	f, errSave := internal.GenerateFile(paths, cfg)
 	if errSave != nil {
