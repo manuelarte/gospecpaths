@@ -1,0 +1,428 @@
+---
+openapi: 3.0.1
+info:
+  # keep-sorted start
+  contact:
+    name: Manuel Doncel Martos
+    url: https://github.com/manuelarte
+  description: Go Web Layout, an example of a Go Web Project layout.
+  title: Go-Web-Layout
+  version: '0.0.1'
+  # keep-sorted end
+
+servers:
+  - url: http://localhost:{port}
+    description: Local development server.
+    variables:
+      port:
+        default: '3001'
+        description: Local development server port.
+        enum:
+          - '3001'
+
+paths:
+  # keep-sorted start
+  /actuators/health:
+    get:
+      operationId: actuatorsHealth
+      description: Get health information about the application.
+      summary: Actuators Health Endpoint
+      security: []
+      tags:
+        - actuators
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+        "4XX":
+          description: Too Many Requests
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Health'
+        "500":
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /actuators/info:
+    get:
+      operationId: actuatorsInfo
+      description: Get info about the application.
+      summary: Actuators Info Endpoint
+      security: []
+      tags:
+        - actuators
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Info'
+        "4XX":
+          description: Validation Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Info'
+        "500":
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/users/{userId}:
+    get:
+      operationId: getUser
+      description: Get User Info by User ID.
+      summary: Get User By ID Endpoint
+      security: []
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: User id
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "4XX":
+          description: Validation Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "500":
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/users:
+    get:
+      operationId: getUsers
+      description: Get all users.
+      summary: Get Users Endpoint
+      security: []
+      tags:
+        - users
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - name: size
+          in: query
+          description: Page size
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            default: 20
+            maximum: 50
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageUsers'
+        "4XX":
+          description: Validation Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "500":
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  # keep-sorted end
+
+components:
+  schemas:
+    # keep-sorted start
+    Error:
+      type: object
+      required:
+        - detail
+        - pointer
+      properties:
+        detail:
+          type: string
+          description: Detailed error message
+        pointer:
+          type: string
+          description: JSON Pointer to the field that caused the error
+    ErrorResponse:
+      type: object
+      description: Error response following RFC9457.
+      required:
+        - type
+        - title
+        - detail
+        - status
+        - instance
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the problem type.
+        title:
+          type: string
+          description: A short, human-readable summary of the problem type.
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+        status:
+          type: integer
+          format: int32
+          description: The HTTP status code generated by the origin server for this occurrence of the problem.
+          minimum: 100
+          maximum: 599
+        instance:
+          type: string
+          format: uri
+          description: A URI reference that identifies the specific occurrence of the problem.
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    Health:
+      type: object
+      description: Health checks about the status of the app
+      required:
+        - status
+        - components
+      properties:
+        status:
+          $ref: '#/components/schemas/HealthStatus'
+        components:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/HealthComponent'
+    HealthComponent:
+      type: object
+      description: Information about the health check
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/HealthStatus'
+        details: { }
+    HealthStatus:
+      type: string
+      description: Status of the health check
+      enum: [ 'UP', 'DOWN' ]
+    Info:
+      type: object
+      description: Info about the version deployed
+      required:
+        - app
+        - git
+      properties:
+        app:
+          $ref: '#/components/schemas/InfoApp'
+        git:
+          $ref: '#/components/schemas/InfoGit'
+    InfoApp:
+      type: object
+      required:
+        - name
+        - description
+        - version
+        - requestId
+      properties:
+        name:
+          type: string
+          description: Name of the app
+        description:
+          type: string
+          description: Description of the app
+        version:
+          type: string
+          description: Version of the app
+    InfoGit:
+      type: object
+      required:
+        - commitId
+        - branch
+        - buildTime
+        - buildUrl
+      properties:
+        commitId:
+          type: string
+          format: git-commit-id
+          description: Commit id of the version deployed
+        branch:
+          type: string
+          format: git-ref
+          description: Branch the app was built from
+        buildTime:
+          type: string
+          format: date-time
+          description: Build time of the version deployed
+        buildUrl:
+          format: url
+          type: string
+          description: The pipeline url that built this version
+    Kind:
+      type: string
+      description: Kind of the response
+      enum:
+        - Page
+        - User
+    Page:
+      type: object
+      required:
+        - size
+        - totalElements
+        - totalPages
+        - number
+        - self
+        - prev
+        - next
+        - first
+        - last
+      properties:
+        size:
+          type: integer
+          format: int32
+          description: Size of the page
+          minimum: 1
+        totalElements:
+          type: integer
+          format: int64
+          description: Total number of elements in the page
+          minimum: 0
+        totalPages:
+          type: integer
+          format: int32
+          description: Total number of pages
+        number:
+          type: integer
+          format: int32
+          description: Current page number
+          minimum: 0
+        self:
+          type: string
+          format: uri
+          description: URL to the current page
+        prev:
+          type: string
+          format: uri
+          description: URL to the previous page
+        next:
+          type: string
+          format: uri
+          description: URL to the next page
+        first:
+          type: string
+          format: uri
+          description: URL to the first page
+        last:
+          type: string
+          format: uri
+          description: URL to the last page
+    PageUsers:
+      type: object
+      required:
+        - kind
+        - content
+        - page
+        - metadata
+      properties:
+        kind:
+          $ref: '#/components/schemas/Kind'
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        page:
+          $ref: '#/components/schemas/Page'
+        metadata:
+          $ref: '#/components/schemas/RequestMetadata'
+    RequestMetadata:
+      type: object
+      required:
+        - environment
+        - requestId
+        - serverId
+        - apiVersion
+      properties:
+        environment:
+          type: string
+          description: Environment where the request was made
+        requestId:
+          type: string
+          description: Request identifier
+        serverId:
+          type: string
+          description: Server id where the request was made
+        apiVersion:
+          type: string
+          description: Version of the application
+    User:
+      type: object
+      required:
+        - self
+        - kind
+        - id
+        - createdAt
+        - updatedAt
+        - username
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL to the user
+        kind:
+          $ref: "#/components/schemas/Kind"
+        id:
+          type: string
+          format: uuid
+          description: Id of the user
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation date of the user
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update date of the user
+        username:
+          type: string
+          description: Username of the user
+          pattern: '^[a-zA-Z0-9_-]{3,32}$'
+          minLength: 3
+          maxLength: 32
+          x-go-type: users.Username
+    # keep-sorted end
+
+tags:
+  # keep-sorted start
+  - name: actuators
+    description: Actuators endpoints
+  - name: users
+    description: Users endpoints
+  # keep-sorted end
