@@ -25,6 +25,7 @@ func GenerateFile(paths []Path, c Cfg) (*jen.File, error) {
 	for _, field := range slices.Sorted(maps.Keys(structsCreated)) {
 		fields = append(fields, jen.Id(field).Id(field))
 	}
+
 	f.Type().Id("Paths").Struct(fields...)
 
 	return f, nil

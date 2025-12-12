@@ -62,11 +62,14 @@ func main() {
 			if cmd.Args().Len() != 1 {
 				return errors.New("expecting openapi spec file path as argument")
 			}
+
 			path := cmd.Args().Get(0)
 			if err := canRead(path); err != nil {
 				return fmt.Errorf("can't read file: %w", err)
 			}
+
 			cfg := internal.DefaultConfig().SetPackageName(packageName).SetOutput(output)
+
 			err := generateFile(path, cfg)
 			if err != nil {
 				return fmt.Errorf("error generating paths struct: %w", err)
@@ -95,7 +98,7 @@ func generateFile(path string, cfg internal.Cfg) error {
 	}
 
 	paths := parsePaths(docModel)
-	slices.SortFunc(paths, func(e internal.Path, e2 internal.Path) int {
+	slices.SortFunc(paths, func(e, e2 internal.Path) int {
 		return strings.Compare(e.GetURL(), e2.GetURL())
 	})
 
