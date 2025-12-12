@@ -1,7 +1,8 @@
 #!/bin/sh
 
+golangci-lint run --fix ./...
+go test ./...
 markdownlint-cli2 --fix ./**/*.md
 codespell .
 yamllint .
 keep-sorted .golangci.yml
-go test ./...
