@@ -4,40 +4,17 @@ package main
 
 import "strings"
 
-type GetUserByNameEndpoint struct{}
+type FindPetsByStatusEndpoint struct{}
 
-func (p GetUserByNameEndpoint) Path(username string) string {
-	message := "/user/{username}"
-	message = strings.Replace(message, "{username}", username, -1)
+func (p FindPetsByStatusEndpoint) Path() string {
+	message := "/pet/findByStatus"
 	return message
 }
 
-type LogoutUserEndpoint struct{}
+type FindPetsByTagsEndpoint struct{}
 
-func (p LogoutUserEndpoint) Path() string {
-	message := "/user/logout"
-	return message
-}
-
-type LoginUserEndpoint struct{}
-
-func (p LoginUserEndpoint) Path() string {
-	message := "/user/login"
-	return message
-}
-
-type GetOrderByIdEndpoint struct{}
-
-func (p GetOrderByIdEndpoint) Path(orderId string) string {
-	message := "/store/order/{orderId}"
-	message = strings.Replace(message, "{orderId}", orderId, -1)
-	return message
-}
-
-type GetInventoryEndpoint struct{}
-
-func (p GetInventoryEndpoint) Path() string {
-	message := "/store/inventory"
+func (p FindPetsByTagsEndpoint) Path() string {
+	message := "/pet/findByTags"
 	return message
 }
 
@@ -49,27 +26,50 @@ func (p GetPetByIdEndpoint) Path(petId string) string {
 	return message
 }
 
-type FindPetsByTagsEndpoint struct{}
+type GetInventoryEndpoint struct{}
 
-func (p FindPetsByTagsEndpoint) Path() string {
-	message := "/pet/findByTags"
+func (p GetInventoryEndpoint) Path() string {
+	message := "/store/inventory"
 	return message
 }
 
-type FindPetsByStatusEndpoint struct{}
+type GetOrderByIdEndpoint struct{}
 
-func (p FindPetsByStatusEndpoint) Path() string {
-	message := "/pet/findByStatus"
+func (p GetOrderByIdEndpoint) Path(orderId string) string {
+	message := "/store/order/{orderId}"
+	message = strings.Replace(message, "{orderId}", orderId, -1)
+	return message
+}
+
+type LoginUserEndpoint struct{}
+
+func (p LoginUserEndpoint) Path() string {
+	message := "/user/login"
+	return message
+}
+
+type LogoutUserEndpoint struct{}
+
+func (p LogoutUserEndpoint) Path() string {
+	message := "/user/logout"
+	return message
+}
+
+type GetUserByNameEndpoint struct{}
+
+func (p GetUserByNameEndpoint) Path(username string) string {
+	message := "/user/{username}"
+	message = strings.Replace(message, "{username}", username, -1)
 	return message
 }
 
 type Paths struct {
-	GetInventoryEndpoint     GetInventoryEndpoint
-	GetPetByIdEndpoint       GetPetByIdEndpoint
-	FindPetsByTagsEndpoint   FindPetsByTagsEndpoint
 	FindPetsByStatusEndpoint FindPetsByStatusEndpoint
-	GetUserByNameEndpoint    GetUserByNameEndpoint
-	LogoutUserEndpoint       LogoutUserEndpoint
-	LoginUserEndpoint        LoginUserEndpoint
+	FindPetsByTagsEndpoint   FindPetsByTagsEndpoint
+	GetInventoryEndpoint     GetInventoryEndpoint
 	GetOrderByIdEndpoint     GetOrderByIdEndpoint
+	GetPetByIdEndpoint       GetPetByIdEndpoint
+	GetUserByNameEndpoint    GetUserByNameEndpoint
+	LoginUserEndpoint        LoginUserEndpoint
+	LogoutUserEndpoint       LogoutUserEndpoint
 }

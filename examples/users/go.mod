@@ -1,4 +1,4 @@
-module petstore
+module users
 
 go 1.24.7
 

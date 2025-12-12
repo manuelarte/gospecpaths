@@ -95,6 +95,10 @@ func (p Path) AddEndpointStruct(f *jen.File) string {
 	return structName
 }
 
+func (p Path) GetURL() string {
+	return p.url
+}
+
 func (p Path) createPathFunction(f *jen.File, structName string, indexFields map[string]jen.Code) {
 	fields := make([]jen.Code, 0, len(indexFields))
 	body := make([]jen.Code, 0)

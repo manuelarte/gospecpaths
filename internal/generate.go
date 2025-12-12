@@ -2,6 +2,8 @@ package internal
 
 import (
 	"fmt"
+	"maps"
+	"slices"
 
 	"github.com/dave/jennifer/jen"
 )
@@ -20,7 +22,7 @@ func GenerateFile(paths []Path, c Cfg) (*jen.File, error) {
 	}
 
 	fields := make([]jen.Code, 0)
-	for field := range structsCreated {
+	for _, field := range slices.Sorted(maps.Keys(structsCreated)) {
 		fields = append(fields, jen.Id(field).Id(field))
 	}
 
