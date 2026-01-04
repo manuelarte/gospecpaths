@@ -1,6 +1,6 @@
 # Go Spec Paths
 
-[![Go](https://github.com/manuelarte/gospecpaths/actions/workflows/go.yml/badge.svg)](https://github.com/manuelarte/gospecpaths/actions/workflows/go.yml)
+[![CI](https://github.com/manuelarte/gospecpaths/actions/workflows/ci.yml/badge.svg)](https://github.com/manuelarte/gospecpaths/actions/workflows/ci.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/manuelarte/gospecpaths)](https://goreportcard.com/report/github.com/manuelarte/gospecpaths)
 ![version](https://img.shields.io/github/v/release/manuelarte/gospecpaths)
 
