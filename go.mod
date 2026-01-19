@@ -5,7 +5,7 @@ go 1.25
 require (
 	github.com/dave/jennifer v1.7.1
 	github.com/pb33f/libopenapi v0.31.2
-	github.com/urfave/cli/v3 v3.6.1
+	github.com/urfave/cli/v3 v3.6.2
 )
 
 require (
