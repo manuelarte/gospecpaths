@@ -16,13 +16,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        go: [stable]
         os: [ubuntu-latest, macos-latest]
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-go@v6
         with:
-          go-version: ${{ matrix.go }}
+          go-version-file: go.mod
 
       - name: Build
         run: go build -v ./...
