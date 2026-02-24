@@ -101,6 +101,7 @@ func (p Path) GetURL() string {
 
 func (p Path) createPathFunction(f *jen.File, structName string, indexFields map[string]jen.Code) {
 	fields := make([]jen.Code, 0, len(indexFields))
+	//nolint:prealloc // check later
 	body := make([]jen.Code, 0)
 
 	body = append(body, jen.Id("message").Op(":=").Lit(p.url))
