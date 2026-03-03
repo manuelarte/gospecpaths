@@ -8,9 +8,9 @@ require (
 	github.com/dave/jennifer v1.7.1 // indirect
 	github.com/manuelarte/gospecpaths v0.0.0-20250924194335-59d81a344dda // indirect
 	github.com/pb33f/jsonpath v0.8.1 // indirect
-	github.com/pb33f/libopenapi v0.33.11 // indirect
+	github.com/pb33f/libopenapi v0.34.0 // indirect
 	github.com/pb33f/ordered-map/v2 v2.3.0 // indirect
-	github.com/urfave/cli/v3 v3.6.2 // indirect
+	github.com/urfave/cli/v3 v3.7.0 // indirect
 	go.yaml.in/yaml/v4 v4.0.0-rc.4 // indirect
 )
 
