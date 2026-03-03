@@ -6,6 +6,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    assignees:
+      - "manuelarte"
     groups:
       all-deps:
         applies-to: version-updates
@@ -14,10 +16,32 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+    pull-request-branch-name:
+      separator: "-"
+    target-branch: "main"
+    rebase-strategy: "auto"
+    allow:
+      - dependency-type: "all"
+    auto-merge: true
+    labels:
+      - "dependencies"
+      - "gomod"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
+    assignees:
+      - "manuelarte"
     commit-message:
       prefix: "chore"
       include: "scope"
+    pull-request-branch-name:
+      separator: "-"
+    target-branch: "main"
+    rebase-strategy: "auto"
+    allow:
+      - dependency-type: "all"
+    auto-merge: true
+    labels:
+      - "dependencies"
+      - "github-actions"
