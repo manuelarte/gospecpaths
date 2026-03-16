@@ -4,7 +4,7 @@ go 1.25.0
 
 require (
 	github.com/dave/jennifer v1.7.1
-	github.com/pb33f/libopenapi v0.34.1
+	github.com/pb33f/libopenapi v0.34.3
 	github.com/urfave/cli/v3 v3.7.0
 )
 
@@ -14,5 +14,5 @@ require (
 	github.com/pb33f/jsonpath v0.8.1 // indirect
 	github.com/pb33f/ordered-map/v2 v2.3.0 // indirect
 	go.yaml.in/yaml/v4 v4.0.0-rc.4 // indirect
-	golang.org/x/sync v0.19.0 // indirect
+	golang.org/x/sync v0.20.0 // indirect
 )
