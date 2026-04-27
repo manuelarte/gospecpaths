@@ -124,6 +124,7 @@ func (p Path) AddEndpointStruct(f *jen.File) string {
 	f.Type().Id(structName).Struct()
 
 	if len(queryParams) > 0 {
+		f.Line()
 		p.createQueryParamsStruct(f, structName, queryParams)
 	}
 
@@ -201,6 +202,7 @@ func (p Path) createQueryParamsStruct(f *jen.File, endpointStructName string, pa
 	}
 
 	f.Type().Id(queryParamsStructName).Struct(fields...)
+	f.Line()
 
 	// Generate ToQueryString method
 	body := make([]jen.Code, 0)
@@ -241,6 +243,7 @@ func (p Path) createQueryParamsStruct(f *jen.File, endpointStructName string, pa
 	f.Func().Params(jen.Id("q").Id(queryParamsStructName)).Id("ToQueryString").Params().String().Block(
 		body...,
 	)
+	f.Line()
 }
 
 func exportName(name string) string {

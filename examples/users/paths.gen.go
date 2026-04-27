@@ -22,6 +22,7 @@ func (p ActuatorsInfoEndpoint) Path() string {
 }
 
 type GetUsersEndpoint struct{}
+
 type GetUsersEndpointQueryParams struct {
 	Page string
 	Size string
@@ -37,6 +38,7 @@ func (q GetUsersEndpointQueryParams) ToQueryString() string {
 	}
 	return values.Encode()
 }
+
 func (p GetUsersEndpoint) Path(queryParams GetUsersEndpointQueryParams) string {
 	message := "/api/v1/users"
 	if queryString := queryParams.ToQueryString(); queryString != "" {
@@ -46,6 +48,7 @@ func (p GetUsersEndpoint) Path(queryParams GetUsersEndpointQueryParams) string {
 }
 
 type GetUserEndpoint struct{}
+
 type GetUserEndpointQueryParams struct {
 	Fields []string
 }
@@ -57,6 +60,7 @@ func (q GetUserEndpointQueryParams) ToQueryString() string {
 	}
 	return values.Encode()
 }
+
 func (p GetUserEndpoint) Path(userId string, queryParams GetUserEndpointQueryParams) string {
 	message := "/api/v1/users/{userId}"
 	message = strings.Replace(message, "{userId}", userId, -1)

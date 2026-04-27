@@ -8,6 +8,7 @@ import (
 )
 
 type FindPetsByStatusEndpoint struct{}
+
 type FindPetsByStatusEndpointQueryParams struct {
 	Status string
 }
@@ -19,6 +20,7 @@ func (q FindPetsByStatusEndpointQueryParams) ToQueryString() string {
 	}
 	return values.Encode()
 }
+
 func (p FindPetsByStatusEndpoint) Path(queryParams FindPetsByStatusEndpointQueryParams) string {
 	message := "/pet/findByStatus"
 	if queryString := queryParams.ToQueryString(); queryString != "" {
@@ -28,6 +30,7 @@ func (p FindPetsByStatusEndpoint) Path(queryParams FindPetsByStatusEndpointQuery
 }
 
 type FindPetsByTagsEndpoint struct{}
+
 type FindPetsByTagsEndpointQueryParams struct {
 	Tags []string
 }
@@ -39,6 +42,7 @@ func (q FindPetsByTagsEndpointQueryParams) ToQueryString() string {
 	}
 	return values.Encode()
 }
+
 func (p FindPetsByTagsEndpoint) Path(queryParams FindPetsByTagsEndpointQueryParams) string {
 	message := "/pet/findByTags"
 	if queryString := queryParams.ToQueryString(); queryString != "" {
@@ -71,6 +75,7 @@ func (p GetOrderByIdEndpoint) Path(orderId string) string {
 }
 
 type LoginUserEndpoint struct{}
+
 type LoginUserEndpointQueryParams struct {
 	Username string
 	Password string
@@ -86,6 +91,7 @@ func (q LoginUserEndpointQueryParams) ToQueryString() string {
 	}
 	return values.Encode()
 }
+
 func (p LoginUserEndpoint) Path(queryParams LoginUserEndpointQueryParams) string {
 	message := "/user/login"
 	if queryString := queryParams.ToQueryString(); queryString != "" {
