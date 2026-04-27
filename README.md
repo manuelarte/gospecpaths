@@ -35,11 +35,18 @@ package gospecpaths
 
 import "strings"
 
-type FindPetsByTagsParam struct{}
+type FindPetsByTagsEndpoint struct {}
 
-func (p FindPetsByTagsParam) Path() string {
- message := "/pet/findByTags"
- return message
+type FindPetsByTagsEndpointQueryParams struct {
+  Tags []string
+}
+
+func (p FindPetsByTagsParam) Path(queryParams FindPetsByTagsEndpointQueryParams) string {
+  message := "/pet/findByTags"
+  if queryString := queryParams.ToQueryString(); queryString != "" {
+    message = message + "?" + queryString
+  }
+  return message
 }
 
 type GetPetByIdParam struct{}
