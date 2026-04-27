@@ -92,6 +92,14 @@ paths:
             format: uuid
           required: true
           description: User id
+        - in: query
+          name: fields
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
       responses:
         "200":
           description: Successful response.

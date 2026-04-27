@@ -2,19 +2,52 @@
 
 package main
 
-import "strings"
+import (
+	"net/url"
+	"strings"
+)
 
 type FindPetsByStatusEndpoint struct{}
 
-func (p FindPetsByStatusEndpoint) Path() string {
+type FindPetsByStatusEndpointQueryParams struct {
+	Status string
+}
+
+func (q FindPetsByStatusEndpointQueryParams) ToQueryString() string {
+	values := url.Values{}
+	if q.Status != "" {
+		values.Set("status", q.Status)
+	}
+	return values.Encode()
+}
+
+func (p FindPetsByStatusEndpoint) Path(queryParams FindPetsByStatusEndpointQueryParams) string {
 	message := "/pet/findByStatus"
+	if queryString := queryParams.ToQueryString(); queryString != "" {
+		message = message + "?" + queryString
+	}
 	return message
 }
 
 type FindPetsByTagsEndpoint struct{}
 
-func (p FindPetsByTagsEndpoint) Path() string {
+type FindPetsByTagsEndpointQueryParams struct {
+	Tags []string
+}
+
+func (q FindPetsByTagsEndpointQueryParams) ToQueryString() string {
+	values := url.Values{}
+	for _, v := range q.Tags {
+		values.Add("tags", v)
+	}
+	return values.Encode()
+}
+
+func (p FindPetsByTagsEndpoint) Path(queryParams FindPetsByTagsEndpointQueryParams) string {
 	message := "/pet/findByTags"
+	if queryString := queryParams.ToQueryString(); queryString != "" {
+		message = message + "?" + queryString
+	}
 	return message
 }
 
@@ -43,8 +76,27 @@ func (p GetOrderByIdEndpoint) Path(orderId string) string {
 
 type LoginUserEndpoint struct{}
 
-func (p LoginUserEndpoint) Path() string {
+type LoginUserEndpointQueryParams struct {
+	Username string
+	Password string
+}
+
+func (q LoginUserEndpointQueryParams) ToQueryString() string {
+	values := url.Values{}
+	if q.Username != "" {
+		values.Set("username", q.Username)
+	}
+	if q.Password != "" {
+		values.Set("password", q.Password)
+	}
+	return values.Encode()
+}
+
+func (p LoginUserEndpoint) Path(queryParams LoginUserEndpointQueryParams) string {
 	message := "/user/login"
+	if queryString := queryParams.ToQueryString(); queryString != "" {
+		message = message + "?" + queryString
+	}
 	return message
 }
 
