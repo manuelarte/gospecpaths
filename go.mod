@@ -4,7 +4,7 @@ go 1.25.0
 
 require (
 	github.com/dave/jennifer v1.7.1
-	github.com/pb33f/libopenapi v0.36.4
+	github.com/pb33f/libopenapi v0.36.6
 	github.com/urfave/cli/v3 v3.9.0
 )
 
