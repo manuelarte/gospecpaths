@@ -1,7 +1,6 @@
 # Go Spec Paths
 
 [![CI](https://github.com/manuelarte/gospecpaths/actions/workflows/ci.yml/badge.svg)](https://github.com/manuelarte/gospecpaths/actions/workflows/ci.yml)
-[![Go Report Card](https://goreportcard.com/badge/github.com/manuelarte/gospecpaths)](https://goreportcard.com/report/github.com/manuelarte/gospecpaths)
 ![version](https://img.shields.io/github/v/release/manuelarte/gospecpaths)
 
 Go Spec Paths retrieves the paths of an OpenAPI spec file and generates a struct with the paths defined in the spec.
