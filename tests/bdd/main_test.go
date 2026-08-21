@@ -2,6 +2,7 @@ package bdd_test
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"os/exec"
@@ -56,7 +57,7 @@ func InitializeScenario(sc *godog.ScenarioContext) {
 
 func (s *pathGenerationState) anOpenAPISpecification(doc *godog.DocString) error {
 	if doc == nil {
-		return fmt.Errorf("missing OpenAPI document")
+		return errors.New("missing OpenAPI document")
 	}
 
 	s.spec = strings.TrimSpace(doc.Content) + "\n"
@@ -73,11 +74,22 @@ func (s *pathGenerationState) iGeneratePaths() error {
 
 	specPath := filepath.Join(tmpDir, "openapi.yaml")
 	outPath := filepath.Join(tmpDir, "paths.gen.go")
-	if err := os.WriteFile(specPath, []byte(s.spec), 0o600); err != nil {
-		return fmt.Errorf("failed to write OpenAPI spec: %w", err)
+
+	if errWrite := os.WriteFile(specPath, []byte(s.spec), 0o600); errWrite != nil {
+		return fmt.Errorf("failed to write OpenAPI spec: %w", errWrite)
 	}
 
-	cmd := exec.Command("go", "run", ".", "--package", "bddpkg", "--output", outPath, specPath)
+	cmd := exec.CommandContext(
+		context.Background(),
+		"go",
+		"run",
+		".",
+		"--package",
+		"bddpkg",
+		"--output",
+		outPath,
+		specPath,
+	)
 	cmd.Dir = repoRoot()
 	out, runErr := cmd.CombinedOutput()
 
@@ -99,7 +111,7 @@ func (s *pathGenerationState) iGeneratePaths() error {
 
 func (s *pathGenerationState) generationSucceeds() error {
 	if s.err != nil {
-		return fmt.Errorf("expected success, got error: %v\n%s", s.err, s.output)
+		return fmt.Errorf("expected success, got error: %w\n%s", s.err, s.output)
 	}
 
 	return nil
@@ -107,7 +119,7 @@ func (s *pathGenerationState) generationSucceeds() error {
 
 func (s *pathGenerationState) generationFailsWithErrorContaining(want string) error {
 	if s.err == nil {
-		return fmt.Errorf("expected generation to fail, but it succeeded")
+		return errors.New("expected generation to fail, but it succeeded")
 	}
 
 	if !strings.Contains(s.output, want) {
@@ -119,10 +131,11 @@ func (s *pathGenerationState) generationFailsWithErrorContaining(want string) er
 
 func (s *pathGenerationState) generatedFileEquals(doc *godog.DocString) error {
 	if doc == nil {
-		return fmt.Errorf("missing expected generated file content")
+		return errors.New("missing expected generated file content")
 	}
 
 	expected := strings.TrimSpace(doc.Content)
+
 	actual := strings.TrimSpace(s.generated)
 	if actual != expected {
 		return fmt.Errorf("generated file mismatch.\nexpected:\n%s\n\ngot:\n%s", expected, actual)
