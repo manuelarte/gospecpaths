@@ -1,0 +1,104 @@
+Feature: Generate paths from OpenAPI
+
+  Scenario: Generate endpoint when GET has operationId
+    Given an OpenAPI specification:
+      """
+      openapi: 3.1.0
+      info:
+        title: Metric Injection
+        version: 0.1.9
+      paths:
+        /resources/{resourceId}/metrics:
+          get:
+            operationId: getResourceMetrics
+            parameters:
+              - in: path
+                name: resourceId
+                required: true
+                schema:
+                  type: string
+              - in: query
+                name: startTime
+                required: true
+                schema:
+                  type: string
+              - in: query
+                name: bucket
+                required: true
+                schema:
+                  type: string
+            responses:
+              "200":
+                description: ok
+      """
+    When I generate paths
+    Then generation succeeds
+    And generated content contains "type GetResourceMetricsEndpoint struct{}"
+    And generated content contains "type GetResourceMetricsEndpointQueryParams struct"
+    And generated content contains "StartTime string"
+    And generated content contains "Bucket"
+    And generated content contains "func (p GetResourceMetricsEndpoint) Path(resourceId string, queryParams GetResourceMetricsEndpointQueryParams) string"
+    And generated content contains "strings.Replace(message, \"{resourceId}\", resourceId, -1)"
+
+  Scenario: Skip endpoint when operationId is missing
+    Given an OpenAPI specification:
+      """
+      openapi: 3.1.0
+      info:
+        title: Metric Injection
+        version: 0.1.9
+      paths:
+        /resources/{resourceId}/metrics:
+          get:
+            parameters:
+              - in: path
+                name: resourceId
+                required: true
+                schema:
+                  type: string
+            responses:
+              "200":
+                description: ok
+      """
+    When I generate paths
+    Then generation succeeds
+    And generated content contains "type Paths struct{}"
+    And generated content does not contain "GetResourceMetricsEndpoint"
+
+  Scenario: Return error for invalid OpenAPI document
+    Given an OpenAPI specification:
+      """
+      openapi: 3.1.0
+      info:
+        title: Broken
+      paths:
+        /resources:
+          get
+            operationId: broken
+      """
+    When I generate paths
+    Then generation fails with error containing "error parsing the document"
+
+  Scenario: Return error for duplicate operationIds
+    Given an OpenAPI specification:
+      """
+      openapi: 3.1.0
+      info:
+        title: Duplicate IDs
+        version: 0.1.0
+      paths:
+        /resources:
+          get:
+            operationId: listResources
+            responses:
+              "200":
+                description: ok
+        /resources/{resourceId}:
+          get:
+            operationId: listResources
+            responses:
+              "200":
+                description: ok
+      """
+    When I generate paths
+    Then generation fails with error containing "struct name already used: \"ListResourcesEndpoint\""
