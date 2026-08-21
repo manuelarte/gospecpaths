@@ -51,8 +51,7 @@ func InitializeScenario(sc *godog.ScenarioContext) {
 	sc.Step(`^I generate paths$`, state.iGeneratePaths)
 	sc.Step(`^generation succeeds$`, state.generationSucceeds)
 	sc.Step(`^generation fails with error containing "([^"]*)"$`, state.generationFailsWithErrorContaining)
-	sc.Step(`^generated content contains "([^"]*)"$`, state.generatedContentContains)
-	sc.Step(`^generated content does not contain "([^"]*)"$`, state.generatedContentDoesNotContain)
+	sc.Step(`^generated file equals:$`, state.generatedFileEquals)
 }
 
 func (s *pathGenerationState) anOpenAPISpecification(doc *godog.DocString) error {
@@ -118,17 +117,15 @@ func (s *pathGenerationState) generationFailsWithErrorContaining(want string) er
 	return nil
 }
 
-func (s *pathGenerationState) generatedContentContains(want string) error {
-	if !strings.Contains(s.generated, want) {
-		return fmt.Errorf("expected generated content to contain %q, got:\n%s", want, s.generated)
+func (s *pathGenerationState) generatedFileEquals(doc *godog.DocString) error {
+	if doc == nil {
+		return fmt.Errorf("missing expected generated file content")
 	}
 
-	return nil
-}
-
-func (s *pathGenerationState) generatedContentDoesNotContain(unwanted string) error {
-	if strings.Contains(s.generated, unwanted) {
-		return fmt.Errorf("expected generated content not to contain %q, got:\n%s", unwanted, s.generated)
+	expected := strings.TrimSpace(doc.Content)
+	actual := strings.TrimSpace(s.generated)
+	if actual != expected {
+		return fmt.Errorf("generated file mismatch.\nexpected:\n%s\n\ngot:\n%s", expected, actual)
 	}
 
 	return nil
