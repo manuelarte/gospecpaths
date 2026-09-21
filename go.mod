@@ -6,7 +6,7 @@ require (
 	github.com/cucumber/godog v0.16.0
 	github.com/dave/jennifer v1.7.1
 	github.com/pb33f/libopenapi v0.38.7
-	github.com/urfave/cli/v3 v3.11.0
+	github.com/urfave/cli/v3 v3.12.0
 )
 
 require (
