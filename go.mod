@@ -5,8 +5,8 @@ go 1.26.0
 require (
 	github.com/cucumber/godog v0.16.0
 	github.com/dave/jennifer v1.7.1
-	github.com/pb33f/libopenapi v0.40.1
-	github.com/urfave/cli/v3 v3.13.0
+	github.com/pb33f/libopenapi v0.41.2
+	github.com/urfave/cli/v3 v3.14.0
 )
 
 require (
@@ -18,9 +18,9 @@ require (
 	github.com/hashicorp/go-immutable-radix v1.3.1 // indirect
 	github.com/hashicorp/go-memdb v1.3.5 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
-	github.com/pb33f/jsonpath v0.8.3 // indirect
-	github.com/pb33f/ordered-map/v2 v2.3.1 // indirect
+	github.com/pb33f/go-yaml v0.1.1 // indirect
+	github.com/pb33f/jsonpath v0.8.4 // indirect
+	github.com/pb33f/ordered-map/v2 v2.3.2 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
-	go.yaml.in/yaml/v4 v4.0.0-rc.6 // indirect
 	golang.org/x/sync v0.23.0 // indirect
 )
